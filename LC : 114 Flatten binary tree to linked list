@@ -1,0 +1,70 @@
+LeetCode : 114 Flatten Binary Tree to linked List
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public void flatten(TreeNode root) {
+        List<TreeNode> ll = new LinkedList<>();
+
+        if(root == null){
+            return;
+        }
+       ll.head = root;
+       int val =  flatten(root.left);
+    ll.next = val;
+       int val2 =  flatten(root.right);
+     ll.next = val2;
+    }
+}
+
+
+Solution : 
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private TreeNode prev = null;
+
+    public void flatten(TreeNode root) {
+
+        if(root == null){
+            return;
+        }
+
+        flatten(root.right);
+
+        flatten(root.left);
+
+        root.right = prev;
+        root.left = null;
+
+        prev = root;
+     
+    }
+}
